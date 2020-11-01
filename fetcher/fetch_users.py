@@ -1,8 +1,8 @@
-import requests
 import json
 import sys
 import time
 
+import requests
 
 ERR_PRIVATE_PROFILE = 30
 
@@ -15,6 +15,10 @@ if len(sys.argv) < 3:
 access_token = sys.argv[1]
 group_id = sys.argv[2]
 offset = 0
+
+# class UsersFetcher():
+#     api_version: float
+#     time_to_sleep
 
 while True:
     url = "https://api.vk.com/method/groups.getMembers?group_id={}&offset={}&count=1000&access_token={}&v=5.95".format(group_id, offset, access_token)
@@ -42,6 +46,3 @@ while True:
     offset += len(users)
 
     time.sleep(SLEEP_PERIOD)
-
-
-

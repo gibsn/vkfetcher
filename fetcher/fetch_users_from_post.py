@@ -1,8 +1,8 @@
-import requests
 import json
 import sys
 import time
 
+import requests
 
 SLEEP_PERIOD = 0.4
 

@@ -23,7 +23,7 @@ class Fetcher():
         self._api_version = v
         self._access_token = t
 
-    def getURLPart(self):
+    def getURLPart(self) -> str:
         return 'access_token={}&v={}'.format(self._access_token, self._api_version)
 
     def checkAPIError(resp):

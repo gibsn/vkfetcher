@@ -15,7 +15,7 @@ class Group():
         self.g_id = g_id
         self.name = name
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "{}\t{}".format(self.g_id, self.name)
 
 
@@ -23,10 +23,10 @@ class GroupsFetcher(Fetcher):
     API_METHOD: str = "https://api.vk.com/method/groups.get"
 
     # getURLPart returns part of url that does not change between requests
-    def getURLPart(self):
+    def getURLPart(self) -> str:
         return 'fields=name&extended=1&count=1000' + '&' + super().getURLPart()
 
-    def getURL(self, user, offset, filters):
+    def getURL(self, user: str, offset: int, filters: str) -> str:
         return self.API_METHOD + "?" + self.getURLPart() \
             + '&' + "user_id={}&filter={}&offset={}".format(
                 user, filters, offset
@@ -37,7 +37,7 @@ class GroupsFetcher(Fetcher):
         fetch fetches all groups for a given user (user must be integer)
         """
 
-        offset = 0
+        offset: int = 0
         groups: List[Group] = []
 
         for filters in ["groups", "publics"]:

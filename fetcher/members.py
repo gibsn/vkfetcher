@@ -14,16 +14,16 @@ class MembersFetcher(Fetcher):
     API_METHOD: str = 'https://api.vk.com/method/groups.getMembers'
 
     # getURLPart returns part of url that does not change between requests
-    def getURLPart(self):
+    def getURLPart(self) -> str:
         return 'count=1000' + '&' + super().getURLPart()
 
-    def getURL(self, group_id: int, offset: int):
+    def getURL(self, group_id: int, offset: int) -> str:
         return self.API_METHOD + '?' + self.getURLPart() +\
             '&' + 'group_id={}&offset={}'.format(
             group_id, offset
         )
 
-    def fetch(self, group_id):
+    def fetch(self, group_id: int) -> str:
         """
         fetch fetches all members for a given group
         """

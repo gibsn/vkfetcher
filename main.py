@@ -16,7 +16,7 @@ USAGE_FETCH_LIKERS_STR = "Usage: fetch_likers post|video resource_id access_toke
 
 def processFetchGroups(argc: int, argv: List[str]):
     if argc != len(['main.py', 'fetch_groups', 'user', 'access_token']):
-        print(USAGE_FETCH_GROUPS_STR)
+        print(USAGE_FETCH_GROUPS_STR, file=sys.stderr)
         sys.exit(1)
 
     user, token = argv[2], argv[3]
@@ -26,7 +26,7 @@ def processFetchGroups(argc: int, argv: List[str]):
 
 def processFetchMembers(argc: int, argv: List[str]):
     if argc != len(['main.py', 'fetch_members', 'user', 'access_token']):
-        print(USAGE_FETCH_MEMBERS_STR)
+        print(USAGE_FETCH_MEMBERS_STR, file=sys.stderr)
         sys.exit(1)
 
     group, token = argv[2], argv[3]
@@ -36,7 +36,7 @@ def processFetchMembers(argc: int, argv: List[str]):
 
 def processFetchLikers(argc: int, argv: List[str]):
     if argc != len(['main.py', 'fetch_likers', 'resource_type', 'user', 'access_token']):
-        print(USAGE_FETCH_LIKERS_STR)
+        print(USAGE_FETCH_LIKERS_STR, file=sys.stderr)
         sys.exit(1)
 
     resource_type, resource_id, token = argv[2], argv[3], argv[4]
@@ -59,10 +59,10 @@ def main(argc: int, argv: List[str]):
         elif cmd == "fetch_likers":
             processFetchLikers(argc, argv)
         else:
-            print(USAGE_STR)
+            print(USAGE_STR, file=sys.stderr)
             sys.exit(1)
     except Exception as e:
-        print('error: {}: {}'.format(cmd, e))
+        print('error: {}: {}'.format(cmd, e), file=sys.stderr)
 
 
 if __name__ == "__main__":

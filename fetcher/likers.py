@@ -14,8 +14,17 @@ class Liker(User):
 class LikersFetcher(Fetcher):
     API_METHOD: str = "https://api.vk.com/method/likes.getList"
 
+    resource_type: str
+
+    def __init__(self, t: str, res_type: str):
+        if res_type != 'post' and res_type != 'video':
+            raise Exception("resource_type {} is not supported".format(res_type))
+
+        self.resource_type = res_type
+        super().__init__(t)
+
     def getURLPart(self) -> str:
-        return 'type=post&count=1000' + '&' + super().getURLPart()
+        return 'type={}&count=1000'.format(self.resource_type) + '&' + super().getURLPart()
 
     def getURL(self, owner_id: int, item_id: int, offset: int) -> str:
         return self.API_METHOD + '?' + self.getURLPart() +\

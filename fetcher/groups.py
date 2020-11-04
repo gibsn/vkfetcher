@@ -4,7 +4,6 @@ from typing import List
 
 import requests
 
-from .constants import ERR_PRIVATE_GROUPS_LIST, ERR_PRIVATE_PROFILE
 from .fetcher import Fetcher
 
 
@@ -51,14 +50,7 @@ class GroupsFetcher(Fetcher):
                         raise Exception("status_code is {}".format(resp.status_code))
 
                     resp_j = resp.json()
-                    if resp_j.get("error") is not None:
-                        err_code = int(resp_j["error"]["error_code"])
-                        if err_code == ERR_PRIVATE_PROFILE:
-                            raise Exception("permission denied")
-                        if err_code == ERR_PRIVATE_GROUPS_LIST:
-                            raise Exception("user has hidden {} list".format(filters))
-
-                        raise Exception("unexpected response: {}".format(resp_j))
+                    Fetcher.checkAPIError(resp_j)
 
                     groups_resp = resp_j[u'response'][u'items']
 

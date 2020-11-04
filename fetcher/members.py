@@ -1,18 +1,14 @@
-import json
-import sys
 import time
 from typing import List
 
 import requests
 
-from .constants import ERR_PRIVATE_PROFILE
 from .fetcher import Fetcher
 from .users import User
 
 
 class Member(User):
-    def __str__(self):
-        return "{}".format(self.uid)
+    pass
 
 class MembersFetcher(Fetcher):
     API_METHOD: str = 'https://api.vk.com/method/groups.getMembers'
@@ -43,12 +39,7 @@ class MembersFetcher(Fetcher):
                 raise Exception("status_code is {}".format(resp.status_code))
 
             resp_j = resp.json()
-            if resp_j.get("error") is not None:
-                err_code = int(resp_j["error"]["error_code"])
-                if err_code == ERR_PRIVATE_PROFILE:
-                    raise Exception("permission denied")
-
-                raise Exception("unexpected response: {}".format(resp_j))
+            Fetcher.checkAPIError(resp_j)
 
             members_resp = resp_j[u'response'][u'items']
 

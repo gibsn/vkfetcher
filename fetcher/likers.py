@@ -1,9 +1,6 @@
-import sys
-import time
 from typing import List
 
-import requests
-
+from .exception import FetcherException
 from .fetcher import Fetcher
 from .users import User
 
@@ -33,13 +30,13 @@ class LikersFetcher(Fetcher):
         super().__init__(**Fetcher._buildArgsForInit(t, v, s))
 
         if res_type not in ('post', 'video'):
-            raise Exception("resource_type {} is not supported".format(res_type))
+            raise FetcherException("resource_type {} is not supported".format(res_type))
 
         self._resource_type = res_type
 
         post_id_split = post_id.split('_')
         if len(post_id_split) != len(['owner_id', 'item_id']):
-            raise Exception('invalid post_id {}'.format(post_id))
+            raise FetcherException('invalid post_id {}'.format(post_id))
 
         self._owner_id, self._item_id = int(post_id_split[0]), int(post_id_split[1])
 

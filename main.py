@@ -6,7 +6,8 @@ TODO doc
 import sys
 from typing import List
 
-from fetcher import Fetcher, GroupsFetcher, LikersFetcher, MembersFetcher
+from fetcher import (Fetcher, FetcherException, GroupsFetcher, LikersFetcher,
+                     MembersFetcher)
 
 USAGE_STR = "Usage: fetch_groups|fetch_members|fetch_likers [options]"
 USAGE_FETCH_GROUPS_STR = "Usage: fetch_groups user access_token"
@@ -61,8 +62,8 @@ def main(argc: int, argv: List[str]):
         else:
             print(USAGE_STR, file=sys.stderr)
             sys.exit(1)
-    except Exception as e:
-        print('error: {}: {}'.format(cmd, e), file=sys.stderr)
+    except FetcherException as ex:
+        print('error: {}: {}'.format(cmd, ex), file=sys.stderr)
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ from typing import List
 
 import requests
 
+from .exception import FetcherException
 from .fetcher import Fetcher
 
 
@@ -63,7 +64,7 @@ class GroupsFetcher(Fetcher):
                     for group in groups_resp:
                         groups.append(Group(group[u'id'], group[u'name']))
 
-            except Exception as e:
-                print("could not fetch {}: {}".format(filters, e), file=sys.stderr)
+            except FetcherException as ex:
+                print("could not fetch {}: {}".format(filters, ex), file=sys.stderr)
 
         return groups

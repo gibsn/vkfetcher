@@ -4,6 +4,8 @@ from typing import List
 
 import requests
 
+from .exception import FetcherException
+
 
 class Fetcher():
     _time_to_sleep: float
@@ -54,7 +56,7 @@ class Fetcher():
 
         resp = requests.get(self.getURLWithOffset())
         if resp.status_code != requests.codes["ok"]:
-            raise Exception("status_code is {}".format(resp.status_code))
+            raise FetcherException("status_code is {}".format(resp.status_code))
 
         resp_j = resp.json()
         Fetcher.checkAPIError(resp_j)
@@ -89,12 +91,12 @@ class Fetcher():
         err_code = int(err_json["error_code"])
 
         if err_code == Fetcher.ERR_PERMISSION_DENIED:
-            raise Exception("permission denied: {}".format(err_json['error_msg']))
+            raise FetcherException("permission denied: {}".format(err_json['error_msg']))
         if err_code == Fetcher.ERR_PROFILE_DELETED:
-            raise Exception("profile is deleted: {}".format(err_json['error_msg']))
+            raise FetcherException("profile is deleted: {}".format(err_json['error_msg']))
         if err_code == Fetcher.ERR_PRIVATE_GROUPS_LIST:
-            raise Exception("user has hidden groups list: {}".format(err_json['error_msg']))
+            raise FetcherException("user has hidden groups list: {}".format(err_json['error_msg']))
         if err_code == Fetcher.ERR_ACCESS_TO_PROFILE_DENIED:
-            raise Exception("access to profile denied: {}".format(err_json['error_msg']))
+            raise FetcherException("access to profile denied: {}".format(err_json['error_msg']))
 
-        raise Exception("error code {}: {}".format(err_code, err_json['error_msg']))
+        raise FetcherException("error code {}: {}".format(err_code, err_json['error_msg']))

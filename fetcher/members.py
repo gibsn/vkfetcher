@@ -1,7 +1,4 @@
-import time
 from typing import List
-
-import requests
 
 from .fetcher import Fetcher
 from .users import User

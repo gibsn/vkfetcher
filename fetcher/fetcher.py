@@ -1,9 +1,17 @@
+import time
+from abc import abstractmethod
+from typing import List
+
+import requests
+
 
 class Fetcher():
     _time_to_sleep: float
 
     _api_version: float
     _access_token: str
+
+    _offset: int
 
     _DEFAULT_API_VERSION: float = 5.95
     _DEFAULT_TIME_TO_SLEEP: float = 0.4
@@ -22,10 +30,57 @@ class Fetcher():
         self._time_to_sleep = s
         self._api_version = v
         self._access_token = t
+        self._offset = 0
 
     def getURLPart(self) -> str:
         return 'access_token={}&v={}'.format(self._access_token, self._api_version)
 
+    @abstractmethod
+    def getURL(self) -> str:
+        '''
+        getURL returns the URL to be fetched. Must be overrided in the inheritor
+        '''
+        pass
+
+    def getURLWithOffset(self) -> str:
+        return self.getURL() + '&offset={}'.format(self._offset)
+
+    def fetchPart(self) -> List:
+        '''
+        fetchPart fetches the next portion of data
+        '''
+
+        time.sleep(self._time_to_sleep)
+
+        resp = requests.get(self.getURLWithOffset())
+        if resp.status_code != requests.codes["ok"]:
+            raise Exception("status_code is {}".format(resp.status_code))
+
+        resp_j = resp.json()
+        Fetcher.checkAPIError(resp_j)
+
+        items = resp_j[u'response'][u'items']
+        self._offset += len(items)
+
+        return items
+
+    @staticmethod
+    def _buildArgsForInit(t: str, v: float, s: float):
+        '''
+        _buildArgsForInit is a convience method to simplify base class
+        initialisation in inherited classes
+        '''
+
+        args = {'t': t}
+
+        if v is not None:
+            args['v'] = v
+        if s is not None:
+            args['s'] = s
+
+        return args
+
+    @staticmethod
     def checkAPIError(resp):
         err_json = resp.get("error")
         if err_json is None:

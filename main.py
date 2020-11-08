@@ -21,7 +21,7 @@ def processFetchGroups(argc: int, argv: List[str]):
 
     user, token = argv[2], argv[3]
 
-    for group in GroupsFetcher(token).fetch(user):
+    for group in GroupsFetcher(user, token).fetch():
         print(group)
 
 def processFetchMembers(argc: int, argv: List[str]):
@@ -31,7 +31,7 @@ def processFetchMembers(argc: int, argv: List[str]):
 
     group, token = argv[2], argv[3]
 
-    for member in MembersFetcher(token).fetch(group):
+    for member in MembersFetcher(group, token).fetch():
         print(member)
 
 def processFetchLikers(argc: int, argv: List[str]):
@@ -41,7 +41,7 @@ def processFetchLikers(argc: int, argv: List[str]):
 
     resource_type, resource_id, token = argv[2], argv[3], argv[4]
 
-    for liker in LikersFetcher(token, resource_type).fetch(resource_id):
+    for liker in LikersFetcher(resource_id, resource_type, token).fetch():
         print(liker)
 
 def main(argc: int, argv: List[str]):

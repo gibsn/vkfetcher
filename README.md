@@ -11,15 +11,17 @@ API rate-limits.
 ## How to get a VK access_token
 You need to start by creating a VK app, you will then request access_token on
 behalf of this app. Proceed to creating an app:
+
 https://vk.com/apps?act=manage
 
 After having created a new app you need to copy the app's ID:
-TODO
+TODO img
 
 And set the 'website address' to some valid address (explanation is given further):
-TODO
+TODO img
 
 Now open this link in your browser:
+
 https://oauth.vk.com/authorize?client_id=123456&display=page&redirect_uri=http://example.com&scope=friends,offline&response_type=token&v=5.95
 
 In this URL:

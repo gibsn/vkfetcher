@@ -18,7 +18,8 @@ Usage: fetch_groups|fetch_members|fetch_likers [options]
 ```
 
 ### fetch_groups
-`fetch_groups` fetches all groups for a given user (user must be integer).
+`fetch_groups` fetches all groups for a given user (user must be integer). The output is a
+list of group ids and group names.
 ```
 Usage: fetch_groups user_id access_token
 ```
@@ -34,7 +35,7 @@ Usage: fetch_groups user_id access_token
 ```
 
 ### fetch_members
-`fetch_members` fetches all members for a given group.
+`fetch_members` fetches all members for a given group. The output is a list of user ids.
 
 ```
 Usage: fetch_members group_id access_token
@@ -52,7 +53,7 @@ Usage: fetch_members group_id access_token
 ```
 
 ### fetch_likers
-`fetch_likers` fetches all users that liked a particular post.
+`fetch_likers` fetches all users that liked a particular post. The output is a list of user ids.
 
 Post_id consists of owner_id and item_id joined through '_'. Owner_id must
 start with '-' if owner is a group.

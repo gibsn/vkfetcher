@@ -1,6 +1,6 @@
 # vkfetcher
 
-`vkfetcher` is command line tool that is here to help you fetch various sets of
+`vkfetcher` is a command line tool that is here to help you fetch various sets of
 objects from VK like members of a given group or likers of the post. `vkfetcher`
 does for you iteration over large sets of data (with the API parameter 'offset'),
 encapsulates some subtleties of VK API and waits between requests to fit in the

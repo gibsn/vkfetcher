@@ -14,15 +14,15 @@ behalf of this app. Proceed to creating an app:
 
 https://vk.com/apps?act=manage
 
-After having created a new app you need to copy the app's ID:
-TODO img
+Choose to create a Standalone app for Web and set the 'website address' to some valid address (it does not matter much):
+<img width="400" height="200" alt="Снимок экрана 2026-03-04 в 10 04 01" src="https://github.com/user-attachments/assets/d1992252-231b-417a-9eb8-624624ffd53e" />
 
-And set the 'website address' to some valid address (explanation is given further):
-TODO img
+After having created a new app you need to copy the app's ID:
+<img width="955" height="350" alt="Снимок экрана 2026-03-04 в 10 18 54" src="https://github.com/user-attachments/assets/257e5339-cd64-42e0-a3ae-356705933481" />
 
 Now open this link in your browser:
 
-https://oauth.vk.com/authorize?client_id=123456&display=page&redirect_uri=http://example.com&scope=friends,offline&response_type=token&v=5.95
+https://oauth.vk.ru/authorize?client_id=123456&display=page&redirect_uri=https://example.com&scope=friends,offline&response_type=token&v=5.95
 
 In this URL:
 * `client_id` is your app's ID
@@ -30,11 +30,18 @@ In this URL:
 * `scope` is a set of scopes to which you request permissions ('offline' here means that you want your token to never expire)
 
 Then you will be redirected to page like this:
-http://example.com/#access_token=123&expires_in=0&user_id=7451787
+https://example.com/#access_token=123&expires_in=0&user_id=7451787
 
 Your token is '123'.
 
 ## Usage
+
+To run the `vkfetcher` create the virtual env and fetch all the dependencies:
+```
+python3 -m venv venv
+source venv/bin/activate
+```
+
 `vkfetcher` can work in several modes:
 ```
 Usage: fetch_groups|fetch_members|fetch_likers [options]
